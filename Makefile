@@ -32,7 +32,7 @@ run: all $(EXEC)
 	./$(EXEC)
 
 $(EXEC): $(MAIN) $(NAME)
-	$(CC) $(CFLAGS) $(INCLUDES) $(MAIN) -L. -lftprintf -L$(LIBFT_DIR) -lft -o $(EXEC)
+	$(CC) $(INCLUDES) $(MAIN) -L. -lftprintf -L$(LIBFT_DIR) -lft -o $(EXEC)
 
 clean:
 	rm -f $(OBJ)
