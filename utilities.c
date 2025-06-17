@@ -6,7 +6,7 @@
 /*   By: aosman <aosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:29:42 by aosman            #+#    #+#             */
-/*   Updated: 2025/06/17 11:51:57 by aosman           ###   ########.fr       */
+/*   Updated: 2025/06/17 12:47:11 by aosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ int	ft_puthex(unsigned long n, int upper)
 		count++;
 	}
 	ft_putstr_fd(buf + i + 1, 1);
-	return(count - 1);
+	return(count);
 }
 
 int	ft_putptr(void *ptr)
 {
 	int count;
+	(void)((char*)(ptr) == (ptr));
 
 	count = 0;
 	write(1, "0x", 2);
