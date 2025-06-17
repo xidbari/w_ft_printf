@@ -6,7 +6,7 @@
 /*   By: aosman <aosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 13:52:30 by aosman            #+#    #+#             */
-/*   Updated: 2025/06/17 11:29:10 by aosman           ###   ########.fr       */
+/*   Updated: 2025/06/17 15:39:15 by aosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	ft_printf(const char *str, ...)
 		if (str[i] == '%' && str[i + 1])
 		{
 			//printf("got -> %c at i+1 :%i\n", str[i+1], i+1);
-			count += ft_get_params(str[i + 1], args);
+			//count += ft_get_params(str[i + 1], args);
+			ft_get_params(str[i + 1], args, &count);
 			//printf("count : %d", count);
 			i += 2;
 		}

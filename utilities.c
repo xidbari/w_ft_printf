@@ -6,7 +6,7 @@
 /*   By: aosman <aosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:29:42 by aosman            #+#    #+#             */
-/*   Updated: 2025/06/17 12:47:11 by aosman           ###   ########.fr       */
+/*   Updated: 2025/06/17 16:11:45 by aosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,21 @@ int get_num_length(int n)
 	}
 	return (count);
 }
-int	ft_put_u_nbr_fd(unsigned int n, int fd)
+void	ft_put_u_nbr_fd(unsigned long n, int fd, int *count)
 {
-	static int	count = 1;
-
 	if (n >= 10)
 	{
-		count++;
-		ft_put_u_nbr_fd(n / 10, fd);
+		//*count += 1;
+		ft_put_u_nbr_fd(n / 10, fd, count);
+		//printf("\ncount : %d\n", *count);
 	}
+
 	ft_putchar_fd((n % 10) + '0', fd);
-	return (count);
+	*count += 1;
+	//return (i);
 }
 
-int	ft_put_nbr_fd(int n, int fd)
+void	ft_put_nbr_fd(int n, int fd, int *count)
 {
 	int 	neg;
 
@@ -50,7 +51,8 @@ int	ft_put_nbr_fd(int n, int fd)
 	if (n == -2147483648)
 	{
 		ft_putstr_fd("-2147483648", 1);
-		return (11);
+		*count += 11;
+		return ;
 	}
 	if (n < 0)
 	{
@@ -63,17 +65,17 @@ int	ft_put_nbr_fd(int n, int fd)
 		ft_putnbr_fd(n / 10, fd);
 	}
 	ft_putchar_fd((n % 10) + '0', fd);
-	return (get_num_length(n) + neg);
+	*count += get_num_length(n) + neg;
 }
 
-int	ft_puthex(unsigned long n, int upper)
+void	ft_puthex(unsigned long n, int upper, int *count)
 {
 	char	buf[17];
 	char	*base;
 	int		i;
-	int		count;
+	//int		count;
 
-	count = 0;
+	//count = 0;
 	i = 16;
 	if (upper)
 		base = "0123456789ABCDEF";
@@ -83,60 +85,60 @@ int	ft_puthex(unsigned long n, int upper)
 	if (n == 0)
 	{
 		buf[i--] = '0';
-		count++;
+		*count += 1;
 	}
 	while (n > 0)
 	{
 		buf[i--] = base[n % 16];
 		n /= 16;
-		count++;
+		*count += 1;
 	}
 	ft_putstr_fd(buf + i + 1, 1);
-	return(count);
+	//return(count);
 }
 
-int	ft_putptr(void *ptr)
+void	ft_putptr(void *ptr, int *count)
 {
-	int count;
-	(void)((char*)(ptr) == (ptr));
+	//int count;
 
-	count = 0;
+	//count = 0;
 	write(1, "0x", 2);
-	count += 2;
-	count += ft_puthex((unsigned long)ptr, 0);
-	return (count);
+	*count += 2;
+	ft_puthex((unsigned long)ptr, 0, count);
+	//return (count);
 }
-int ft_putstr(char *str)
-{
+void ft_putstr(char *str, int *count)
+{	//printf("i inside _putstr : %i", *i);
+
 	ft_putstr_fd(str, 1);
-	return (ft_strlen(str));
+	*count += ft_strlen(str);
 }
 
-int	ft_get_params(char param, va_list args)
+void	ft_get_params(char param, va_list args, int *count)
 {
-	int count = 0;
+	//int count = 0;
 
 	if (param == 'c')
 	{
 		ft_putchar_fd(va_arg(args, int), 1);
-		count++;
+		*count += 1;
 	}
 	else if (param == 'd' || param == 'i')
-		count += ft_put_nbr_fd(va_arg(args, int), 1);
+		ft_put_nbr_fd(va_arg(args, int), 1, count);
 	else if (param == 's')
-		count += ft_putstr(va_arg(args, char *));
+		ft_putstr(va_arg(args, char *), count);
 	else if (param == 'u')
-		count += ft_put_u_nbr_fd(va_arg(args, unsigned int), 1);
+		ft_put_u_nbr_fd(va_arg(args, unsigned int), 1, count);
 	else if (param == 'x')
-		count += ft_puthex(va_arg(args, unsigned int), 0);
+		ft_puthex(va_arg(args, unsigned int), 0, count);
 	else if (param == 'X')
-		count += ft_puthex(va_arg(args, unsigned int), 1);
+		ft_puthex(va_arg(args, unsigned int), 1, count);
 	else if (param == 'p')
-		count += ft_putptr(va_arg(args, void *));
+		ft_putptr(va_arg(args, void *), count);
 	else if (param == '%')
 	{
 		ft_putchar_fd('%', 1);
-		count++;
+		(*count)++;
 	}
-	return (count);
+	//return (*count);
 }
