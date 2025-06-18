@@ -6,7 +6,7 @@
 /*   By: aosman <aosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 14:12:50 by aosman            #+#    #+#             */
-/*   Updated: 2025/06/17 16:37:38 by aosman           ###   ########.fr       */
+/*   Updated: 2025/06/18 12:49:27 by aosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	ft_puthex(unsigned long n, int upper, int *count);
 void	ft_put_nbr_fd(int n, int fd, int *count);
 void	ft_put_u_nbr_fd(unsigned long n, int fd, int *count);
 void	ft_putstr(char *str, int *count);
+int		get_num_length(int n);
 
 #endif

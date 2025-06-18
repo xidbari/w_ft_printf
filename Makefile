@@ -1,6 +1,7 @@
 NAME = libftprintf.a
 
-SRC = ft_printf.c utilities.c
+SRC = ft_printf.c ft_putstr.c ft_putptr.c ft_puthex.c \
+		ft_put_nbr_fd.c ft_put_u_nbr_fd.c ft_get_num_length.c
 OBJ = $(SRC:.c=.o)
 
 LIBFT_DIR = libft
@@ -32,7 +33,7 @@ run: all $(EXEC)
 	./$(EXEC)
 
 $(EXEC): $(MAIN) $(NAME)
-	$(CC) $(INCLUDES) $(MAIN) -L. -lftprintf -L$(LIBFT_DIR) -lft -o $(EXEC)
+	$(CC) $(CFLAGS) $(INCLUDES) $(MAIN) -L. -lftprintf -L$(LIBFT_DIR) -lft -o $(EXEC)
 
 clean:
 	rm -f $(OBJ)
